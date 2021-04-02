@@ -1,0 +1,65 @@
+﻿@model MongoMovie.Models.MovieReview
+
+@if (TempData["message"] != null)
+{
+    <div class="text-center alert-danger">@TempData["message"]</div>
+}
+
+<form method="post">
+    @foreach (var info in typeof(MovieReview).GetProperties())
+    {
+    <div class="form-group">
+        @if (info.Name == "ID")
+        {
+            @if (info.GetValue(Model, null) != null)
+            {
+                <input type="hidden" asp-for="ID" />
+            }
+
+        }
+        else if (info.Name == "Movie")
+        {
+            <label for="@info.Name">@info.Name:</label>
+            <label for="@info.Name">
+                <a asp-controller="Movie" asp-action="Details"
+                   asp-route-id="@Model.Movie.ID">@Model.Movie.Title</a>
+            </label>
+        }
+        else if (info.Name == "Created" || info.Name == "Updated")
+        {
+        }
+        else if (info.Name == "MovieID")
+        {
+            <input type="hidden" asp-for="MovieID" />
+        }
+        else if (info.Name == "Message")
+        {
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Message):
+            </div>
+            <div class="editor-field">
+                @Html.TextAreaFor(model => model.Message, 10, 100, null)
+            </div>
+            <span asp-validation-for="Message" class="text-danger"></span>
+        }
+        else
+        {
+            <label for="@info.Name"> @info.Name:</label>
+            <input id="@info.Name" name="@info.Name" value="@info.GetValue(Model, null)" class="form-control" />
+            <span asp-validation-for="@info.Name" class="text-danger"></span>
+        }
+
+    </div>
+    }
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="reset" class="btn btn-secondary">Cancel</button>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Details" asp-route-id="@Model.MovieID">Back to Movie Details</a> &nbsp; | &nbsp;
+    <a asp-action="List">Back to List</a> &nbsp; | &nbsp;
+    <a asp-action="Index" asp-controller="Home">Back to Home</a>
+</div>

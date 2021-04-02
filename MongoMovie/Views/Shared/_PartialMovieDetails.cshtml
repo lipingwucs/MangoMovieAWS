@@ -1,0 +1,75 @@
+﻿@model MongoMovie.Models.Movie
+
+<div>
+    @if (@ViewBag.errorMessage != null)
+    {
+        <div class="btn-danger">@ViewBag.errorMessage</div>
+    }
+    else
+    {
+        @foreach (var info in typeof(Movie).GetProperties())
+        {
+<div class="form-group">
+
+    @if (info.Name == "UserName")
+    {
+        <label for="@info.Name"> Author:</label>
+        <label for="@info.Name"> @info.GetValue(Model, null)   </label>
+
+    }
+    else if (info.Name == "Path")
+    {
+        <input type="hidden" asp-for="Path" />
+    }
+    else if (info.Name == "Title")
+    {
+        <label for="Title" Style="vertical-align: top;">Title:</label>
+        <label for="Title">
+            @Html.Raw(Model.Title.Replace(Environment.NewLine, "<br>"))
+        </label>
+    }
+    else if (info.Name == "ReleaseDate")
+    {
+        <label for="Title" Style="vertical-align: top;">ReleaseDate:</label>
+        <label for="Title">
+            @Model.ReleaseDate.ToString("yyyy-MM-dd")
+        </label>
+    }
+
+    else if (info.Name != "MovieReviews" && info.Name != "Dict" && info.Name != "ID")
+    {
+        <label for="@info.Name">@info.Name:</label>
+        <label for="@info.Name">@info.GetValue(Model, null)</label>
+    }
+</div>
+        }
+        <hr />
+       
+        <hr />
+        <div class="container-fluid">
+            <h4>The Reviews of current Movie [@Model.Title]: <a asp-action="AddReview" asp-controller="Movie" class="btn btn-sm btn-warning" asp-route-id="@Model.ID">Add your review on this movie</a></h4>
+            <table class="table table-hover">
+                @foreach (var p in Model.MovieReviews)
+                {
+                    <tr>
+                        <td>
+                            <div>
+                                <h5>
+                                    <b>[@p.Updated]:</b> @p.FirstName  @p.LastName  - Email: @p.Email Tel: @p.Telephone &nbsp;<a asp-action="UpdateReview" asp-controller="Movie" class="btn btn-sm btn-warning" asp-route-id="@p.ID">Update</a> |
+                                    <a asp-action="DeleteReview" asp-controller="Movie" class="btn btn-danger btn-sm" asp-route-id="@p.ID"> Delete </a>
+                                </h5>
+                                <div style="min-height:50px;overflow:auto;">
+                                    @Html.Raw(p.Message.Replace(Environment.NewLine, "<br>"))
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+
+</div>
+<div>
+    <a asp-action="List">Back to List</a>
+</div>

@@ -1,0 +1,23 @@
+﻿@model Dictionary<string, string>[]
+
+<div>
+    @if (@ViewBag.errorMessage != null)
+    {
+        <div class="btn-danger">@ViewBag.errorMessage</div>
+    }
+    else
+    {
+        @foreach (var kvp in Model[0])
+        {
+            <div class="form-group">
+                <label for="@kvp.Key">@kvp.Value:</label>
+                <label for="@kvp.Key">@Model[1][@kvp.Key]</label>
+            </div>
+        }
+    }
+
+
+</div>
+<div>
+    <a asp-action="List">Back to List</a>
+</div>

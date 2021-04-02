@@ -1,0 +1,46 @@
+﻿@model MongoMovie.Models.Movie
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Upload a movie file</title>
+
+</head>
+<body class="p-2">
+    <h3 class="text-center">Update file for the Movie: @ViewBag.Title</h3>
+
+    <p>Use this area to browse a movie file and upload to S3 bucket.</p>
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Upload" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="ID" />
+
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" readonly />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label  class="control-label">Movie File</label>
+                    <input type="file" name="file" class="form-control" />
+                    
+                </div>
+               
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                    <button type="reset" class="btn btn-secondary">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Details" asp-route-id="@Model.ID">Back to Movie Details</a> &nbsp; | &nbsp;
+        <a asp-action="List">Back to List</a> &nbsp; | &nbsp;
+        <a asp-action="Index" asp-controller="Home">Back to Home</a>
+    </div>
+
+</body>
+</html>

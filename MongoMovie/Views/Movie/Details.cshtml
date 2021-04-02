@@ -1,0 +1,29 @@
+﻿@model MongoMovie.Models.Movie
+
+@{
+    ViewBag.Title = @ViewBag.MovieTitle;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.MovieTitle</title>
+</head>
+<body>
+    <h2>
+        Movie Summary: &nbsp; &nbsp; <a asp-action="Download" class="btn btn-sm btn-warning" asp-route-id="@Model.ID">Download</a> &nbsp;
+        <a asp-action="Update" class="btn btn-sm btn-warning" asp-route-id="@Model.ID">Update</a> &nbsp;
+        <a asp-action="Delete" class="btn btn-danger btn-sm" asp-route-id="@Model.ID">Delete</a>
+        &nbsp;
+    </h2>
+    <hr />
+    @if (TempData["message"] != null)
+    {
+        <div class="text-center alert-success">@TempData["message"]</div>
+    }
+    @Html.Partial("~/Views/Shared/_PartialMovieDetails.cshtml", Model)
+
+</body>
+</html>

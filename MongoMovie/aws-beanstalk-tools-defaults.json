@@ -1,0 +1,24 @@
+
+{
+    "region" : "us-east-1",
+    "configuration" : "Debug",
+    "framework"     : "netcoreapp2.0",
+    "self-contained" : false,
+    "application"    : "MongoMovie",
+    "environment"    : "MongoMovie-test",
+    "enable-xray"    : false,
+    "enhanced-health-type" : "basic",
+    "additional-options"   : "\"aws:autoscaling:launchconfiguration,SecurityGroups\"=\"sg-7f05ca4c\";\"aws:ec2:vpc,Subnets\"=\"subnet-4c493d42\"",
+    "solution-stack"       : "64bit Windows Server Core 2019 v2.5.10 running IIS 10.0",
+    "environment-type"     : "SingleInstance",
+    "cname"                : "mongomovie-comp306",
+    "instance-type"        : "t3a.medium",
+    "key-pair"             : "",
+    "instance-profile"     : "aws-elasticbeanstalk-ec2-role",
+    "service-role"         : "aws-elasticbeanstalk-service-role",
+    "proxy-server"         : "nginx",
+    "profile"              : "comp306Movie",
+    "health-check-url"     : "/",
+    "iis-website"          : "Default Web Site",
+    "app-path"             : "/"
+}

@@ -1,0 +1,21 @@
+﻿@model Movie
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete a movie</title>
+</head>
+<body class="p-2">
+    <h3 class="text-center">@ViewBag.Message </h3>
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+    </form>
+    <div>
+        <a asp-action="Details" asp-route-id="@Model.ID">Back to Movie Details</a> &nbsp; | &nbsp;
+        <a asp-action="List">Back to List</a> &nbsp; | &nbsp;
+        <a asp-action="Index" asp-controller="Home">Back to Home</a>
+    </div>
+</body>
+</html>

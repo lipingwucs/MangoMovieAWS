@@ -1,0 +1,55 @@
+﻿@model MongoMovie.Models.Movie
+
+@if (TempData["message"] != null)
+{
+<div class="text-center alert-danger">@TempData["message"]</div>
+}
+
+<form method="post">
+    @foreach (var info in typeof(Movie).GetProperties())
+    {
+    <div class="form-group">
+        @if (info.Name == "ID" || info.Name == "Created" || info.Name == "Updated")
+        {
+            <input type="hidden" asp-for="ID" />
+            <input type="hidden" asp-for="Created" />
+            <input type="hidden" asp-for="Updated" />
+        }
+        else if (info.Name == "MovieReviews" ||
+                 info.Name == "Reviews" ||
+                 info.Name == "Dict" ||
+                 info.Name == "Path"
+                )
+        {
+        }
+        else if (info.Name == "UserName")
+        {
+            <label for="@info.Name"> Author:</label>
+            <input id="@info.Name" name="@info.Name" value="@info.GetValue(Model, null)" class="form-control" readonly />
+            <span asp-validation-for="@info.Name" class="text-danger"></span>
+        }
+        else if (info.Name == "ReleaseDate")
+        {
+            <label for="@info.Name"> @info.Name:</label>
+            <input id="@info.Name" name="@info.Name" type="Date" value="@Model.ReleaseDate.ToString("yyyy-MM-dd")" class="form-control"  />
+            <span asp-validation-for="@info.Name" class="text-danger"></span>
+        }
+        else
+        {
+            <label for="@info.Name"> @info.Name:</label>
+            <input id="@info.Name" name="@info.Name" value="@info.GetValue(Model, null)" class="form-control" />
+            <span asp-validation-for="@info.Name" class="text-danger"></span>
+        }
+    </div>
+    }
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="reset" class="btn btn-secondary">Cancel</button>
+    </div>
+</form>
+
+<div>
+    <a asp-action="List">Back to List</a> &nbsp; | &nbsp;
+    <a asp-action="Index" asp-controller="Home">Back to Home</a>
+</div>

@@ -1,0 +1,33 @@
+﻿@model Dictionary<string, string>
+
+    <form asp-action="AddNew" method="post">
+        @foreach (var kvp in Model)
+            {
+        <div class="form-group">
+            @if (kvp.Key == "ID")
+            {
+            <input type="hidden" id="@kvp.Key" name="@kvp.Key" value="" class="form-control" />
+            }
+            else if (kvp.Key == "Created" ||
+                     kvp.Key == "Updated")
+            {
+            }
+            else
+            {
+                <label for="@kvp.Key">@kvp.Value:</label>
+                <input id="@kvp.Key" name="@kvp.Key" value="" class="form-control" />
+            }
+        </div>
+            }
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="reset" class="btn btn-toolbar">Cancel</button>
+        </div>
+    </form>
+
+    <div>
+        <a asp-action="List">Back to List</a> &nbsp;
+        <a asp-action="Index" asp-controller="Home">Back to Home</a>
+    </div>
+
+
